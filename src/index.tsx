@@ -1,4 +1,5 @@
-// Delete me
-export const Thing = () => {
-  return <div>the snozzberries taste like snozzberries</div>;
-};
+export const ExampleComponent = () => (
+  <div>
+    <h1>Hello world!</h1>
+  </div>
+);
