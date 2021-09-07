@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
+import { ExampleComponent } from '../../..';
+
 export default function Home() {
   return (
     <div className="container">
@@ -19,6 +21,8 @@ export default function Home() {
           Get started by editing{' '}
           <code className="code">pages/index.js</code>
         </p>
+
+        <ExampleComponent />
 
         <div className="grid md:grid-cols-2">
           <a href="https://nextjs.org/docs" className="card">
