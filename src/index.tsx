@@ -1,7 +1,20 @@
 export const ExampleComponent = () => (
-  <div className="cursor-pointer hover:shadow-lg shadow-sm p-8 rounded-lg border-2 text-center">
-    <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-blue-500">
-      This is an example component!
+  <div className="
+      m-8 p-8 
+      text-center
+      cursor-pointer 
+      rounded-lg 
+      bg-gradient-to-br from-pink-50 to-blue-50 
+      border-4 border-blue-100 
+      shadow-sm hover:shadow-lg
+    ">
+    <h2 className="
+      font-bold
+      select-none
+      text-blue-900
+      opacity-80
+    ">
+      example
     </h2>
   </div>
 );
