@@ -12,7 +12,10 @@
     "build": "tszip build",
     "test": "tszip test",
     "lint": "tszip lint",
-    "prepare": "tszip build"
+    "prepare": "tszip build",
+    "rust:compile": "cargo build-bpf --manifest-path contracts/rust/Cargo.toml --bpf-out-dir contracts/rust/dist",
+    "rust:clean": "cargo clean --manifest-path contracts/rust/Cargo.toml && rm -rf contracts/rust/dist",
+    "rust:test": "cargo test-bpf --manifest-path contracts/rust/Cargo.toml"
   },
   "module": "./dist/index.js",
   "exports": {
@@ -36,6 +39,7 @@
   "devDependencies": {
     "@tszip/tszip": "^1.7.0",
     "@types/jest": "^27.0.1",
+    "@types/mz": "^2.7.4",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
     "husky": "^7.0.2",
@@ -45,7 +49,10 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
+    "@solana/spl-token": "^0.1.8",
+    "@solana/web3.js": "^1.25.0",
     "@tszip/esm-require": "1.1.1",
+    "mz": "^2.7.0",
     "ts-jest": "^27.0.5"
   }
 }
