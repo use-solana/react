@@ -1,6 +1,8 @@
-import { PublicKey, RpcResponseAndContext } from '@solana/web3.js';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { KeyLike } from '../../utils/keys';
+import { RpcResponseAndContext } from '@solana/web3.js';
 import { useConnection } from '..';
+import { usePubkey } from '../usePubkey';
 
 /**
  * Check the SOL or SPL token balance of an address.
@@ -10,29 +12,27 @@ import { useConnection } from '..';
  * `accountAddress`. If not provided, returns SOL balance.
  * @returns The balance of `accountAddress` in SOL or the given token mint.
  */
-export const useSolanaBalance = (accountAddress: PublicKey) => {
+export const useSolanaBalance = (address: KeyLike) => {
   const connection = useConnection();
+  const publicKey = usePubkey(address);
   const [balance, setBalance] = useState<RpcResponseAndContext<number>>();
 
-  useCallback(async () => {
-    const newBalance = await connection?.getBalanceAndContext(accountAddress);
-    setBalance(newBalance);
-  }, [accountAddress, connection]);
+  useEffect(() => {
+    (async () => {
+      const newBalance = await connection?.getBalanceAndContext(publicKey);
+      if (newBalance) {
+        setBalance(newBalance);
+      }
+    })();
+  }, [publicKey, connection]);
 
   return balance;
 };
 
-// export const useTokenBalance = (
-//   accountAddress: PublicKey,
-//   tokenMint: PublicKey,
-// ) => {
+/**
+ * Get the token balance of a given address and token mint.
+ */
+// export const useTokenBalance = (address: KeyLike, mintAddress: KeyLike) => {
 //   const connection = useConnection();
-//   const [balance, setBalance] = useState<RpcResponseAndContext<number>>();
 
-//   useCallback(async () => {
-//     const newBalance = await connection?.getTokenAccountBalance(accountAddress);
-//     setBalance(newBalance);
-//   }, [accountAddress, connection]);
-
-//   return balance;
 // };

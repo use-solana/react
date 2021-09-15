@@ -2,8 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { ExampleComponent } from '../../..';
+import { useSolanaBalance } from '../../..';
+
+const EXAMPLE_WALLET = 'FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe';
 
 export default function Home() {
+  const { value, context } = useSolanaBalance(EXAMPLE_WALLET) || {};
+
   return (
     <div className="container">
       <Head>
@@ -19,8 +24,19 @@ export default function Home() {
 
         <p className="my-8 md:my-16 font-size-3 text-center">
           Get started by editing{' '}
-          <code className="code">pages/index.js</code>
+          <code className="code">pages/index.tsx</code>
         </p>
+        
+        <span className="font-size-xs">{EXAMPLE_WALLET}</span>
+        <div className="m-8 grid grid-cols-2 items-center">
+          <h4>Balance</h4>
+          <h3 className="text-gray-500">
+            {value ? `${value / 10**9} SOL` : 'Loading...'}
+          </h3>
+        </div>
+        <span className="font-size-xs italic">
+          {context?.slot ? `As of Slot ${context.slot}` : 'Loading...'}.
+        </span>
 
         <ExampleComponent />
 

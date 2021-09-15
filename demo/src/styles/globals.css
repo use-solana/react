@@ -42,11 +42,13 @@
   }
 
   * {
-    transition: 200ms ease-in;
+    transition: 250ms ease-in-out;
   }
 
   /* Ellipsis overflow for inline text. */
   span {
+    /* Never exceed 90% of screen width. */
+    max-width: 90vw;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -117,7 +119,7 @@
   h4 a,
   h5 a,
   h6 a {
-    color: #0070f3;
+    @apply text-blue-700 opacity-80;
   }
 
   h1, .h1 {
@@ -154,7 +156,6 @@
   /* If the user can hover, transition in by default. */
   @media (hover: hover) {
     a {
-      transition: 300ms;
       text-decoration: underline;
       text-decoration-color: transparent;
     }
@@ -177,17 +178,15 @@
 
   /* CUSTOM STYLES */
   .card {
-    @apply m-4 p-6 text-left rounded-lg;
+    @apply m-4 p-6 text-left rounded-lg border-4 border-gray-100;
     text-decoration: none;
-    border: 1px solid #eaeaea;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    /* transition: color 0.15s ease, border-color 0.15s ease; */
     /* max-width: 300px; */
   }
   
   .card:hover,
   .card:focus,
   .card:active {
-    color: #0070f3;
-    border-color: #0070f3;
+    @apply border-blue-700 border-opacity-20;
   }
 }

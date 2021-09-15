@@ -28,9 +28,6 @@ console.log(connection);
 const balance = await connection.getBalance(publicKey);
 console.log({ balance });
 
-// const tokenBalance = await connection.getTokenAccountBalance(publicKey);
-// console.log({ tokenBalance });
-
 const tokenSupply = await connection.getTokenSupply(MINT_ADDRESS);
 console.log({ tokenSupply });
 
@@ -40,3 +37,6 @@ const associatedAddress = await getAssociatedTokenAddress(
 );
 
 console.log(associatedAddress.toBase58());
+
+const tokenBalance = await connection.getTokenAccountBalance(associatedAddress);
+console.log({ tokenBalance });
