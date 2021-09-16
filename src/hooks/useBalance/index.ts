@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { KeyLike } from '../../utils/keys';
 import { RpcResponseAndContext } from '@solana/web3.js';
-import { useConnection } from '..';
 import { usePubkey } from '../usePubkey';
+import { useSolanaState } from '../../context';
 
 /**
  * Check the SOL or SPL token balance of an address.
@@ -13,8 +13,8 @@ import { usePubkey } from '../usePubkey';
  * @returns The balance of `accountAddress` in SOL or the given token mint.
  */
 export const useSolanaBalance = (address: KeyLike) => {
-  const connection = useConnection();
   const publicKey = usePubkey(address);
+  const { connection } = useSolanaState();
   const [balance, setBalance] = useState<RpcResponseAndContext<number>>();
 
   useEffect(() => {

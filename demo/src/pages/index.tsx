@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { ExampleComponent } from '../../..';
-import { useSolanaBalance } from '../../..';
+// import { ExampleComponent, useSolanaBalance } from '../../../dist/components';
+import { useSolanaBalance } from '../../../dist/hooks/useBalance';
+import { BigButton } from '../../../dist/components/BigButton';
 
 const EXAMPLE_WALLET = 'FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe';
 
@@ -10,6 +11,7 @@ export default function Home() {
   const { value, context } = useSolanaBalance(EXAMPLE_WALLET) || {};
 
   return (
+
     <div className="container">
       <Head>
         <title>Create Next App</title>
@@ -26,19 +28,19 @@ export default function Home() {
           Get started by editing{' '}
           <code className="code">pages/index.tsx</code>
         </p>
-        
+
         <span className="font-size-xs">{EXAMPLE_WALLET}</span>
         <div className="m-8 grid grid-cols-2 items-center">
           <h4>Balance</h4>
           <h3 className="text-gray-500">
-            {value ? `${value / 10**9} SOL` : 'Loading...'}
+            {value ? `${value / 10 ** 9} SOL` : 'Loading...'}
           </h3>
         </div>
         <span className="font-size-xs italic">
           {context?.slot ? `As of Slot ${context.slot}` : 'Loading...'}.
         </span>
 
-        <ExampleComponent />
+        <BigButton />
 
         <div className="grid md:grid-cols-2">
           <a href="https://nextjs.org/docs" className="card">

@@ -1,13 +1,17 @@
-import { connection, getConnection } from '../../utils/connection';
-import { useEffect, useState } from 'react';
+import { getConnection } from '../../utils/connection';
+import { useEffect } from 'react';
+import { useSolanaState } from '../../context';
 
 export const useConnection = () => {
-  const [_connection, _setConnection] = useState(connection);
+  const { connection, loading, updateState } = useSolanaState();
+  console.log({ loading });
   useEffect(() => {
     (async () => {
       console.log('Top of callback useConnection');
-      _setConnection(await getConnection());
+      updateState({
+        connection: await getConnection(),
+      });
     })();
-  }, []);
-  return _connection;
+  }, [updateState]);
+  return connection;
 };

@@ -1,5 +1,9 @@
 module.exports = {
   reactStrictMode: true,
+  experimental: { esmExternals: true },
+  // babel: (config) => {
+  //   console.log(config);
+  // },
   webpack: (config) => {
     // config.experiments = { topLevelAwait: true };
     // config.resolve.fallback = {
@@ -16,3 +20,5 @@ module.exports = {
     return config;
   },
 }
+
+// export default nextConfig;

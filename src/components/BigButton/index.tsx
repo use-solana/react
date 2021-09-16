@@ -1,7 +1,7 @@
 // import { useSolanaBalance } from '../..';
 // const EXAMPLE_WALLET = 'FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe';
 
-export const ExampleComponent = () => {
+export const BigButton = () => {
   // const balance = useSolanaBalance(EXAMPLE_WALLET);
   // const { value } = balance || {};
 
