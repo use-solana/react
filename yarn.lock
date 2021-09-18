@@ -2558,12 +2558,12 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-create-stateful-context@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/create-stateful-context/-/create-stateful-context-1.1.0.tgz#1492492bdf07b15fc85c464fe951f3e17af8024f"
-  integrity sha512-zgd3tMDOvzpaudZMtMXf9SOBieeT+QQR77PSGoKf/Dh21pyeshcwi9EIQb/AYLZVxoqbe9k68oWgPhZ6siAjfQ==
+create-scoped-state@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/create-scoped-state/-/create-scoped-state-1.4.1.tgz#ec6c74c7b9f7e7fd666ed535ef030e8475d42507"
+  integrity sha512-vGSyu5hCYja2fQj1MjAUNiW2cvYyEkFkpxo1OjyySY/CGfr9iOwsn5tgm779aGCs4ntfSvdZDWCWPwF84VGk1g==
   dependencies:
-    stateful-component "^1.3.0"
+    stateful-component "^1.5.1"
 
 cross-fetch@^3.1.4:
   version "3.1.4"
@@ -6792,10 +6792,12 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-stateful-component@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/stateful-component/-/stateful-component-1.3.0.tgz#b290e8d94358a7af5e1b45f3708cece4a6a776a4"
-  integrity sha512-kb2Kq4pDYYWs90pQMg1Qn/IReluaC7HS1XI42NSwVOWelaec10Vbsc+4gPNtdRK+N65mk8VuOVuWDTXNAbeWCA==
+stateful-component@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/stateful-component/-/stateful-component-1.5.1.tgz#a7dfa29b7728be524f1f62514e456039391c70e2"
+  integrity sha512-/76cZ3r3Wjy/10hGvFkEaP9gCXwjPpnQI4NL78TVG8d2J31h9EEZQlTxeeqImS4/QsBNuGkIdsvpANfcsQdHTg==
+  dependencies:
+    typescript "^4.4.3"
 
 stream-combiner@~0.0.4:
   version "0.0.4"

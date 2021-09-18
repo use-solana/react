@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from '@solana/web3.js';
-import { createStatefulContext } from 'create-stateful-context';
+import { createScopedState } from 'create-scoped-state';
 import { getConnection } from '../utils/connection';
 
 const DEFAULT_CONTEXT = {
@@ -7,9 +7,9 @@ const DEFAULT_CONTEXT = {
   pubkey: null as PublicKey | null,
 };
 
-const [SolanaStateProvider, useSolanaState] = createStatefulContext({
-  initialState: DEFAULT_CONTEXT,
-  next: async ({ connection }) => {
+const [SolanaStateProvider, useSolanaState] = createScopedState(
+  DEFAULT_CONTEXT,
+  async ({ connection }) => {
     if (!connection) {
       return {
         pubkey: new PublicKey('FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe'),
@@ -19,6 +19,6 @@ const [SolanaStateProvider, useSolanaState] = createStatefulContext({
 
     return null;
   },
-});
+);
 
 export { SolanaStateProvider, useSolanaState };

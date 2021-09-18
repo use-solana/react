@@ -3,15 +3,15 @@ import { useEffect } from 'react';
 import { useSolanaState } from '../../context';
 
 export const useConnection = () => {
-  const { connection, loading, transition } = useSolanaState();
+  const { connection, loading, updateState } = useSolanaState();
   console.log({ loading });
   useEffect(() => {
     (async () => {
       console.log('Top of callback useConnection');
-      transition({
+      updateState({
         connection: await getConnection(),
       });
     })();
-  }, [transition]);
+  }, [updateState]);
   return connection;
 };

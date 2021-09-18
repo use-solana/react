@@ -6,14 +6,14 @@ import { useSolanaBalance } from '../../../dist/hooks/useBalance';
 import { usePubkey } from '../../../dist/hooks/usePubkey';
 import { SmallButton } from '../../../dist/components/Button';
 import { getAssociatedBalance } from '../../../dist/token/utils';
-import { createStatefulContext } from 'create-stateful-context';
+import { createScopedState } from 'create-scoped-state';
 import { useSolanaState } from '../../../dist/context';
 import { createRef } from 'react';
 
 const EXAMPLE_WALLET = 'FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe';
 
-const [TokenBalanceProvider, useTokenBalance] = createStatefulContext({
-  initialState: null,
+const [TokenBalanceProvider, useTokenBalance] = createScopedState({
+  tokenBalance: null,
 });
 
 const AssociatedAddressBalance = () => {
@@ -31,7 +31,7 @@ const AssociatedAddressBalance = () => {
 const MintBalanceForm = () => {
   const mintAddressInputRef = createRef<HTMLInputElement>();
   const { connection, pubkey } = useSolanaState();
-  const { transition } = useTokenBalance();
+  const { updateState } = useTokenBalance();
   return (
     <form
       className="w-full max-w-lg flex flex-col items-center text-center justify-center mx-8"
@@ -43,7 +43,7 @@ const MintBalanceForm = () => {
             pubkey,
             mintAddressInputRef.current.value
           );
-          transition({ tokenBalance: loadedTokenBalance.value.uiAmountString })
+          updateState({ tokenBalance: loadedTokenBalance.value.uiAmountString })
         })();
       }}
     >
