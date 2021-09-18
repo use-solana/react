@@ -9,11 +9,15 @@ const DEFAULT_CONTEXT = {
 
 const [SolanaStateProvider, useSolanaState] = createStatefulContext({
   initialState: DEFAULT_CONTEXT,
-  updateState: async ({ connection, updateState }) => {
+  next: async ({ connection }) => {
     if (!connection) {
-      updateState({ connection: await getConnection() });
+      return {
+        pubkey: new PublicKey('FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe'),
+        connection: await getConnection(),
+      };
     }
-    return false;
+
+    return null;
   },
 });
 

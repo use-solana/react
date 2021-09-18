@@ -1,1 +1,1 @@
-export * from './BigButton';
+export * from './Button';

@@ -3,15 +3,70 @@ import Image from 'next/image'
 
 // import { ExampleComponent, useSolanaBalance } from '../../../dist/components';
 import { useSolanaBalance } from '../../../dist/hooks/useBalance';
-import { BigButton } from '../../../dist/components/BigButton';
+import { usePubkey } from '../../../dist/hooks/usePubkey';
+import { SmallButton } from '../../../dist/components/Button';
+import { getAssociatedBalance } from '../../../dist/token/utils';
+import { createStatefulContext } from 'create-stateful-context';
+import { useSolanaState } from '../../../dist/context';
+import { createRef } from 'react';
 
 const EXAMPLE_WALLET = 'FeuT9mmNGSDxaUVSMPLxbGhybh8i3mjUGKhpnXHuzyCe';
 
+const [TokenBalanceProvider, useTokenBalance] = createStatefulContext({
+  initialState: null,
+});
+
+const AssociatedAddressBalance = () => {
+  const { tokenBalance } = useTokenBalance();
+  return (
+    <div className="w-full grid grid-cols-2">
+      {tokenBalance && <h4>Balance</h4>}
+      <h3 className="text-gray-500">
+        {tokenBalance ? `${tokenBalance} units` : null}
+      </h3>
+    </div>
+  );
+}
+
+const MintBalanceForm = () => {
+  const mintAddressInputRef = createRef<HTMLInputElement>();
+  const { connection, pubkey } = useSolanaState();
+  const { transition } = useTokenBalance();
+  return (
+    <form
+      className="w-full max-w-lg flex flex-col items-center text-center justify-center mx-8"
+      onSubmit={(e) => {
+        e.preventDefault();
+        (async () => {
+          const loadedTokenBalance = await getAssociatedBalance(
+            connection,
+            pubkey,
+            mintAddressInputRef.current.value
+          );
+          transition({ tokenBalance: loadedTokenBalance.value.uiAmountString })
+        })();
+      }}
+    >
+      <label className="p-2 text-gray-500" htmlFor="mint">Mint Address</label>
+      <input
+        ref={mintAddressInputRef}
+        id="mint"
+        type="text"
+        className="w-full rounded-lg bg-blue-100 bg-opacity-25 max-w-lg m-4 py-4 text-center"
+        placeholder="Enter Mint Address"
+        required
+        pattern="\w{44}"
+      />
+
+      <AssociatedAddressBalance />
+      <SmallButton />
+    </form>
+  );
+}
+
 export default function Home() {
   const { value, context } = useSolanaBalance(EXAMPLE_WALLET) || {};
-
   return (
-
     <div className="container">
       <Head>
         <title>Create Next App</title>
@@ -29,8 +84,10 @@ export default function Home() {
           <code className="code">pages/index.tsx</code>
         </p>
 
+        {/* CHAIN INFO */}
+
         <span className="font-size-xs">{EXAMPLE_WALLET}</span>
-        <div className="m-8 grid grid-cols-2 items-center">
+        <div className="m-8 grid grid-cols-2 text-center items-center">
           <h4>Balance</h4>
           <h3 className="text-gray-500">
             {value ? `${value / 10 ** 9} SOL` : 'Loading...'}
@@ -40,7 +97,11 @@ export default function Home() {
           {context?.slot ? `As of Slot ${context.slot}` : 'Loading...'}.
         </span>
 
-        <BigButton />
+        <hr className="my-8" />
+
+        <TokenBalanceProvider>
+          <MintBalanceForm />
+        </TokenBalanceProvider>
 
         <div className="grid md:grid-cols-2">
           <a href="https://nextjs.org/docs" className="card">
